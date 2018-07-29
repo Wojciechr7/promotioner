@@ -2,6 +2,7 @@ import cheerio from 'cheerio';
 import rp from 'request-promise';
 import {Product} from "../interfaces/product";
 import {Options} from "../interfaces/options";
+import {MarketsData} from "./markets-data";
 
 
 
@@ -10,6 +11,8 @@ export class Scrapper {
     private options: Options;
 
     private productList: Array<Product>;
+
+    private marketsData: MarketsData;
 
 
     constructor() {
@@ -23,8 +26,13 @@ export class Scrapper {
             }
         };
 
+        this.marketsData = new MarketsData();
 
-        this.scrap(this.productList);
+        this.marketsData.Markets[0].urls().then(($: any) => {
+            console.log($('.has-childs').text());
+        })
+
+        //this.scrap(this.productList);
 
     }
 
@@ -44,7 +52,7 @@ export class Scrapper {
                     });
                 });
 
-                console.log(pl);
+                //console.log(pl);
             })
             .catch((err: any) => {
                 console.log(err);
