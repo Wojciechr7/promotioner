@@ -1,4 +1,6 @@
 import {Main} from "./main";
 
+const main = new Main();
 
-new Main();
+
+export default main;

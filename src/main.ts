@@ -6,7 +6,7 @@ import {MarketsData} from "./scrapper/markets-data";
 
 export class Main {
 
-    private scrappers: Array<Scrapper>;
+    public scrappers: Array<Scrapper>;
 
 
     constructor() {
@@ -17,9 +17,9 @@ export class Main {
         ];
 
 
-        this.scrappers[0].scrap().then(() => {
-            //console.log(this.scrappers[0].productList);
-        })
+        /*this.scrappers[0].scrap().then(() => {
+            console.log(this.scrappers[0].productList);
+        })*/
 
 
     }
