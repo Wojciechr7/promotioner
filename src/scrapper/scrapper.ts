@@ -1,6 +1,7 @@
 import {Product} from "../interfaces/product";
 import {Options} from "../interfaces/options";
-import {MarketsData} from "./markets-data";
+import Promise from "bluebird";
+
 
 
 
@@ -12,11 +13,16 @@ export abstract class Scrapper {
 
     protected productIndex: number;
 
+    public additionalUrls: any;
 
     constructor() {
 
         this.productList = [];
         this.productIndex = 0;
+
+        this.additionalUrls = [];
+
+
 
     }
 

@@ -19,6 +19,13 @@ export class Main {
 
         /*this.scrappers[0].scrap().then(() => {
             console.log(this.scrappers[0].productList);
+        });*/
+
+        /*this.scrappers[0].scrap().then(() => {
+            //console.log(this.scrappers[0].productList);
+            //console.log(this.scrappers[0].additionalUrls);
+            console.log('skonczone');
+
         })*/
 
 
