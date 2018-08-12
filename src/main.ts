@@ -11,15 +11,15 @@ export class Main {
 
     constructor() {
         this.scrappers = [
-            new BiedronkaScrapper(),
-            /*            new LidlScrapper(),
-                        new TescoScrapper()*/
+            //new BiedronkaScrapper(),
+                        new LidlScrapper(),
+                        //new TescoScrapper()
         ];
 
 
-        /*this.scrappers[0].scrap().then(() => {
-            console.log(this.scrappers[0].productList);
-        });*/
+        this.scrappers[0].scrap().then(() => {
+            //console.log(this.scrappers[0].productList);
+        });
 
         /*this.scrappers[0].scrap().then(() => {
             //console.log(this.scrappers[0].productList);

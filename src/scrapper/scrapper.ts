@@ -26,7 +26,7 @@ export abstract class Scrapper {
 
     }
 
-    public abstract scrap(): any;
+    public abstract scrap(): Promise<any>;
 
 
 
