@@ -1,32 +1,35 @@
-import {Product} from "../interfaces/product";
+
 import {Options} from "../interfaces/options";
 import Promise from "bluebird";
+import cheerio from "cheerio";
 
 
 
 
 export abstract class Scrapper {
 
-    protected options!: Options;
+    protected options: Options;
 
-    public productList: Array<Product>;
+    protected additionalUrls: any;
 
-    protected productIndex: number;
 
-    public additionalUrls: any;
-
-    constructor() {
-
-        this.productList = [];
-        this.productIndex = 0;
+    protected constructor(protected product: any) {
 
         this.additionalUrls = [];
+
+        this.options = {
+            uri: ``,
+            transform: (body: string) => {
+                return cheerio.load(body);
+            }
+        };
 
 
 
     }
 
     public abstract scrap(): Promise<any>;
+    protected abstract createRequests(): Promise<any>;
 
 
 

@@ -1,20 +1,15 @@
 import {Scrapper} from "../scrapper";
 import rp from 'request-promise';
-import cheerio from "cheerio";
 import Promise from 'bluebird';
+import {Product} from "../../interfaces/product";
 
 
 export class LidlScrapper extends Scrapper {
 
-    constructor() {
-        super();
+    constructor(protected product: Product) {
+        super(product);
 
-        this.options = {
-            uri: `https://www.lidl.pl`,
-            transform: (body: string) => {
-                return cheerio.load(body);
-            }
-        };
+        this.options.uri = `https://www.lidl.pl`;
 
     }
 
@@ -26,8 +21,8 @@ export class LidlScrapper extends Scrapper {
                 $('ul.productgrid__list .product__body').each((i: number, el: CheerioElement) => {
                     let pln = $(el).find('.pricefield__price').text(), gr = $(el).find('.pricefield__price').text();
 
-                    this.productList.push({
-                        id: this.productIndex++,
+                    this.product.list.push({
+                        id: this.product.index++,
                         name: $(el).find('.product__title').text().toLowerCase(),
                         pln: parseInt(pln.substr(0, pln.indexOf(','))),
                         gr: parseInt(gr.substring(gr.indexOf(',') + 1, gr.indexOf('z'))),
@@ -42,7 +37,7 @@ export class LidlScrapper extends Scrapper {
 
     }
 
-    private createRequests(): Promise<any> {
+    protected createRequests(): Promise<any> {
         return rp(this.options)
             .then(($: CheerioSelector) => {
                 this.options.uri = `https://www.lidl.pl${$('.navigation--main .slick-slide a').first().attr('href')}`;
