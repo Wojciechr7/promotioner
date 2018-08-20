@@ -3,6 +3,7 @@ import {BiedronkaScrapper} from "./scrapper/markets/biedronka-scrapper";
 import {LidlScrapper} from "./scrapper/markets/lidl-scrapper";
 import {TescoScrapper} from "./scrapper/markets/tesco-scrapper";
 import {Product} from "./interfaces/product";
+import Promise from 'bluebird';
 
 
 export class Main {
@@ -24,9 +25,10 @@ export class Main {
             new TescoScrapper(this.product)
         ];
 
+    }
 
-
-
+    public scrapAll() {
+        return Promise.all(this.scrappers.map((scrapper => scrapper.scrap())));
     }
 
 

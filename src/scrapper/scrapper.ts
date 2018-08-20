@@ -10,12 +10,15 @@ export abstract class Scrapper {
 
     protected options: Options;
 
-    protected additionalUrls: any;
+    public additionalUrls: any;
+
+    public productList: any;
 
 
     protected constructor(protected product: any) {
 
         this.additionalUrls = [];
+        this.productList = [];
 
         this.options = {
             uri: ``,

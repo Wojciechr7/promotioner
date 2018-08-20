@@ -3,28 +3,14 @@ import * as path from "path";
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-
-//var routes = require('./routes/index');
-
 import routes from './routes/index';
 import products from './routes/products';
+import allowCrossDomain from "./cross-domain";
 
-const allowCrossDomain = (req: any, res: any, next: any) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-};
 
 const app = express();
 app.use(allowCrossDomain);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -76,6 +62,8 @@ app.use(function(err: any, req: any, res: any, next: any) {
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
+
+
 
 
 export default app;

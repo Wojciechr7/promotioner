@@ -16,13 +16,12 @@ export class BiedronkaScrapper extends Scrapper {
 
 
     public scrap(): Promise<any> {
-
         return this.mainScrap().then(() => {
             const requests = this.createAdditionalRequests();
 
             return Promise.all(requests).then((responses: any) => {
                 responses.forEach(($: CheerioSelector) => {
-                    const price = $('.prod-cat-descryption .product-description').eq(1).text().replace( /\s/g, '');
+                    const price = $('.prod-cat-descryption .product-description').eq(1).text().replace(/\s/g, '');
                     if (price) {
                         let pln = price, gr = price;
                         this.product.list.push({
@@ -33,17 +32,18 @@ export class BiedronkaScrapper extends Scrapper {
                             promotion: '',
                             shop: 'biedronka'
                         });
-
                     }
-                })
+                });
             })
         })
+
     }
+
 
 
     private mainScrap(): Promise<any> {
         const requests = this.createRequests();
-
+        this.additionalUrls = [];
         return Promise.all(requests).then((responses: any) => {
             responses.forEach(($: CheerioSelector) => {
                 $('.productsimple-default').each((i: number, el: CheerioElement) => {

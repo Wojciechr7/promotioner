@@ -22,20 +22,23 @@ export class TescoScrapper extends Scrapper {
 
         return this.mainScrap().then(() => {
             const requests = this.createAdditionalRequests();
+            this.additionalUrls = [];
 
             return Promise.all(requests).then((responses: any) => {
                 responses.forEach(($: CheerioSelector) => {
 
                     $('.a-productListing__productsGrid__element').each((i: number, el: CheerioElement) => {
                         let pln = $(el).find('.new-price').html()!, gr = $(el).find('.new-price sup').text();
-                        this.product.list.push({
-                            id: this.product.index++,
-                            name: $(el).find('.name').text().replace(/\n/g, '').toLowerCase().replace( /\s\s/g, ''),
-                            pln: parseInt(pln.substr(0, pln.indexOf('<'))),
-                            gr: parseInt(gr),
-                            promotion: $(el).find('.discount span').text(),
-                            shop: 'tesco'
-                        });
+                        if (pln.substr(0, pln.indexOf('<'))) {
+                            this.product.list.push({
+                                id: this.product.index++,
+                                name: $(el).find('.name').text().replace(/\n/g, '').toLowerCase().replace( /\s\s/g, ''),
+                                pln: parseInt(pln.substr(0, pln.indexOf('<'))),
+                                gr: parseInt(gr),
+                                promotion: $(el).find('.discount span').text(),
+                                shop: 'tesco'
+                            });
+                        }
                     })
                 });
             })
