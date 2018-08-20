@@ -13,7 +13,11 @@ connection.connect((err) => {
         ' `promotion` varchar(300) DEFAULT NULL,\n' +
         ' `shop` varchar(100) DEFAULT NULL,\n' +
         ' PRIMARY KEY (`id`)\n' +
-        ' );');
+        ' ) CHARACTER SET utf8 COLLATE utf8_polish_ci;');
+    connection.query('CREATE TABLE IF NOT EXISTS `timer` (\n' +
+        ' `id` int(6) NOT NULL,\n' +
+        ' `time` TIMESTAMP NOT NULL\n' +
+        ' ) CHARACTER SET utf8 COLLATE utf8_polish_ci;');
     console.log('connected to db');
 });
 

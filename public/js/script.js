@@ -25,7 +25,12 @@ function saveProducts() {
         url: URL + '/products',
         success: function(data) {
             console.log(data);
-            //displayPromotions(data);
+            if (!isNaN(data)) {
+                alert(`please wait ${data} minutes`);
+            } else {
+                displayPromotions(data);
+            }
+
         }
     });
 
