@@ -16,10 +16,12 @@ router.get('/', (req: any, res: any, next: any) => {
     });
 });
 
+
+
 router.post('/', (req: any, res: any, next: any) => {
     Time.get((err: any, response: any) => {
         if (err) console.error(err);
-        else {
+        else if (response.length) {
             const duration = moment.duration(moment(new Date()).diff(moment(response[0].time)));
             if (duration.asMinutes() > 5) {
                 Time.update(new Date(), (err: any) => {
@@ -38,6 +40,19 @@ router.post('/', (req: any, res: any, next: any) => {
             } else {
                 res.json((5 - duration.asMinutes()).toFixed(2));
             }
+        }
+        else {
+            Time.add(new Date(), (err: any) => {
+                if (err) throw err;
+                main.product.list = [];
+                main.product.index = 1;
+                main.scrapAll().then(() => {
+                    Product.addAll(main.product.list, (err: any) => {
+                        if (err) console.log(err);
+                        else res.json(main.product.list);
+                    });
+                });
+            });
         }
 
     });

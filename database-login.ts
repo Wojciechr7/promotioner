@@ -3,6 +3,8 @@ import options from './password';
 
 const connection = mysql.createConnection(options);
 
+
+
 connection.connect((err) => {
     if (err) throw err;
     connection.query('CREATE TABLE IF NOT EXISTS `products` (\n' +

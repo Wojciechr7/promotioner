@@ -3,14 +3,6 @@
 import app from "../app";
 import * as http from "http";
 
-/**
- * Module dependencies.
- */
-
-//var app = require('../app');
-
-/*var debug = require('debug')('todo-api:server');*/
-
 
 /**
  * Get port from environment and store in Express.
