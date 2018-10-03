@@ -8,7 +8,6 @@ import moment from 'moment';
 // probably need to move full array at once
 
 const router = express.Router();
-let updatingDb = false;
 
 router.get('/', (req: any, res: any, next: any) => {
     Product.getAll((err: any, items: any) => {
@@ -21,8 +20,6 @@ router.get('/', (req: any, res: any, next: any) => {
 
 
 router.post('/', (req: any, res: any, next: any) => {
-    if (!updatingDb) {
-        updatingDb = true;
         Time.get((err: any, response: any) => {
             if (err) console.error(err);
             else if (response.length) {
@@ -37,7 +34,6 @@ router.post('/', (req: any, res: any, next: any) => {
                                 Product.addAll(main.product.list, (err: any) => {
                                     if (err) console.log(err);
                                     else {
-                                        updatingDb = false;
                                         res.json(0);
                                     }
                                 });
@@ -45,7 +41,6 @@ router.post('/', (req: any, res: any, next: any) => {
                         }
                     });
                 } else {
-                    updatingDb = false;
                     res.json((5 - duration.asMinutes()).toFixed(2));
                 }
             }
@@ -58,7 +53,6 @@ router.post('/', (req: any, res: any, next: any) => {
                         Product.addAll(main.product.list, (err: any) => {
                             if (err) console.log(err);
                             else {
-                                updatingDb = false;
                                 res.json(0);
                             }
                         });
@@ -67,10 +61,6 @@ router.post('/', (req: any, res: any, next: any) => {
             }
 
         });
-    } else {
-        res.json(5);
-    }
-
 
 });
 
